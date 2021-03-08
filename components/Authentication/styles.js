@@ -14,6 +14,12 @@ export const Signin = styled.View`
   width: 70%;
   align-items: center;
 `;
+export const Signup = styled.View`
+  margin-top: 11%;
+  margin-left: 14%;
+  width: 70%;
+  align-items: center;
+`;
 
 export const AuthTextInput = styled.TextInput`
   align-self: stretch;

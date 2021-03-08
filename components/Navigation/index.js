@@ -1,18 +1,18 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-// import Home from "../Home";
+import Home from "../Home";
 import SignIn from "../Authentication/SignIn";
-// import SignUp from "../Authentication/SignUp";
+import SignUp from "../Authentication/SignUp";
 
 export const RootNavigator = () => {
   const { Navigator, Screen } = createStackNavigator();
 
   return (
     <Navigator
-      initialRouteName="SignIn"
+      initialRouteName="Home"
       screenOptions={{ headerTitleAlign: "center" }}
     >
-      {/* <Screen name="Home" component={Home} options={{ headerShown: false }} /> */}
+      <Screen name="Home" component={Home} options={{ headerShown: false }} />
       <Screen
         name="SignIn"
         component={SignIn}
@@ -22,14 +22,14 @@ export const RootNavigator = () => {
         }}
       />
 
-      {/* <Screen
+      <Screen
         name="SignUp"
         component={SignUp}
         options={{
           title: "Sign Up",
           headerShown: false,
         }}
-      /> */}
+      />
     </Navigator>
   );
 };

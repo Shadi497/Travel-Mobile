@@ -21,7 +21,11 @@ export default function SignIn() {
     event.preventDefault();
     await dispatch(signin(user));
     navigation.replace("Home");
-    ToastAndroid.show(`Welcome ${user.username}`, ToastAndroid.SHORT);
+    ToastAndroid.show(
+      `Welcome ${user.username}`,
+      ToastAndroid.SHORT,
+      ToastAndroid.TOP
+    );
   };
 
   return (
@@ -42,7 +46,7 @@ export default function SignIn() {
           secureTextEntry={true}
           placeholder="Password"
         ></AuthTextInput>
-        <SignButtonStyle onPress={handleSubmit()}>
+        <SignButtonStyle onPress={handleSubmit}>
           <Text style={{ color: "white" }}>Sign In</Text>
         </SignButtonStyle>
         <Text onPress={() => navigation.navigate("SignUp")}>
