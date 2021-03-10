@@ -3,6 +3,7 @@ import React from "react";
 import Home from "../Home";
 import SignIn from "../Authentication/SignIn";
 import SignUp from "../Authentication/SignUp";
+import AirlineSignIn from "../Authentication/AirlineSignIn";
 
 export const RootNavigator = () => {
   const { Navigator, Screen } = createStackNavigator();
@@ -21,7 +22,6 @@ export const RootNavigator = () => {
           headerShown: false,
         }}
       />
-
       <Screen
         name="SignUp"
         component={SignUp}
@@ -30,6 +30,14 @@ export const RootNavigator = () => {
           headerShown: false,
         }}
       />
+      {/* <Screen
+        name="AirlineSignIn"
+        component={AirlineSignIn}
+        options={{
+          title: "Sign In",
+          headerShown: false,
+        }}
+      /> */}
     </Navigator>
   );
 };

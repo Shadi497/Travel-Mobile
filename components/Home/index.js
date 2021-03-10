@@ -37,11 +37,7 @@ const Home = ({ navigation }) => {
       <TopStyling>
         <Title>Travel Go</Title>
       </TopStyling>
-      <BottomStyling>
-        {/* <ButtonStyled onPress={() => navigation.navigate("ShopList")}>
-          Shop List
-        </ButtonStyled> */}
-      </BottomStyling>
+
       <Welcome>
         {user && <UserTitle>{`Welcome ${user.username} `}</UserTitle>}
         {user && (
@@ -58,6 +54,13 @@ const Home = ({ navigation }) => {
           <Text style={{ color: "white" }}>Sign In</Text>
         </SignOutButtonStyle>
       )}
+      {/* {!user && (
+        <SignOutButtonStyle
+          onPress={() => navigation.navigate("AirlineSignIn")}
+        >
+          <Text style={{ color: "white" }}>Airline Sign In</Text>
+        </SignOutButtonStyle>
+      )} */}
     </HomeBackground>
   );
 };

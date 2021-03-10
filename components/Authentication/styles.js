@@ -8,6 +8,12 @@ export const SignButtonStyle = styled(Button)`
   justify-content: center;
 `;
 
+export const ButtonStyle = styled.Button`
+  margin: 60% 0 10% 34%;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Signin = styled.View`
   margin-top: 25%;
   margin-left: 14%;
@@ -25,11 +31,12 @@ export const AuthTextInput = styled.TextInput`
   align-self: stretch;
   text-align: left;
   height: 40px;
-  margin-bottom: 30px;
+  width: 250px;
   border-bottom-width: 1px;
 `;
 
 export const Errtext = styled.Text`
-  text-align: left;
-  margin-bottom: 30px;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #ff0d10;
 `;

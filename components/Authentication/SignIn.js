@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Text, ToastAndroid } from "react-native";
-import { useDispatch } from "react-redux";
+import { Text, ToastAndroid, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../store/actions/authActions";
-import { SignButtonStyle, Signin, AuthTextInput, Errtext } from "./styles";
+import { ButtonStyle, Signin, AuthTextInput, Errtext } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import { useForm, Controller } from "react-hook-form";
+import { Formik } from "formik";
+import * as yup from "yup";
 
 export default function SignIn() {
   const [user, setUser] = useState({
@@ -17,15 +18,18 @@ export default function SignIn() {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = async (event) => {
+  const users = useSelector((state) => state.authReducer.user);
+  const OnSubmit = async (event) => {
     event.preventDefault();
     await dispatch(signin(user));
     navigation.replace("Home");
-    ToastAndroid.show(
-      `Welcome ${user.username}`,
-      ToastAndroid.SHORT,
-      ToastAndroid.TOP
-    );
+    if (users !== "null") {
+      ToastAndroid.show(
+        `Welcome ${user.username}`,
+        ToastAndroid.SHORT,
+        ToastAndroid.TOP
+      );
+    }
   };
 
   return (
@@ -34,25 +38,72 @@ export default function SignIn() {
         <Text style={{ marginBottom: 30, fontWeight: "bold", fontSize: 25 }}>
           Sign In
         </Text>
-        <AuthTextInput
-          onChangeText={(username) => setUser({ ...user, username })}
-          value={user.username}
-          placeholder="Username"
-        />
 
-        <AuthTextInput
-          value={user.password}
-          onChangeText={(password) => setUser({ ...user, password })}
-          secureTextEntry={true}
-          placeholder="Password"
-        ></AuthTextInput>
-        <SignButtonStyle onPress={handleSubmit}>
-          <Text style={{ color: "white" }}>Sign In</Text>
-        </SignButtonStyle>
-        <Text onPress={() => navigation.navigate("SignUp")}>
-          Don't have an account?
-          <Text style={{ fontWeight: "bold" }}> Sign Up!</Text>
-        </Text>
+        <Formik
+          initialValues={{
+            username: "",
+            password: "",
+          }}
+          onSubmit={(values) => setUser(values)}
+          validationSchema={yup.object().shape({
+            username: yup.string().required("Please, provide your user name!"),
+            password: yup
+              .string()
+              .min(8, "Password must be more than 8 chars.")
+              .required(),
+          })}
+        >
+          {({
+            values,
+            handleChange,
+            errors,
+            setFieldTouched,
+            touched,
+            isValid,
+            handleSubmit,
+          }) => (
+            <View>
+              <View style={{ marginBottom: 25 }}>
+                <AuthTextInput
+                  value={values.username}
+                  onChangeText={handleChange("username")}
+                  onBlur={() => setFieldTouched("username")}
+                  placeholder="username"
+                />
+                {touched.username && errors.username && (
+                  <Errtext>{errors.username}</Errtext>
+                )}
+              </View>
+              <View style={{ marginBottom: 25 }}>
+                <AuthTextInput
+                  value={values.password}
+                  onChangeText={handleChange("password")}
+                  placeholder="Password"
+                  onBlur={() => setFieldTouched("password")}
+                  secureTextEntry={true}
+                />
+                {touched.password && errors.password && (
+                  <Errtext>{errors.password}</Errtext>
+                )}
+              </View>
+
+              <ButtonStyle
+                title="Submit"
+                disabled={!isValid}
+                onPress={
+                  user.username && user.password ? OnSubmit : handleSubmit
+                }
+              />
+              <Text
+                style={{ marginTop: 25 }}
+                onPress={() => navigation.navigate("SignUp")}
+              >
+                Don't have an account?
+                <Text style={{ fontWeight: "bold" }}> Sign Up!</Text>
+              </Text>
+            </View>
+          )}
+        </Formik>
       </Signin>
     </ScrollView>
   );

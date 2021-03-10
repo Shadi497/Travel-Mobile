@@ -44,10 +44,9 @@ export const ButtonStyled = styled.Text`
 `;
 
 export const SignOutButtonStyle = styled(Text)`
-  margin: 0 0 10% 45%;
-  width: 30%;
-  align-items: center;
-  justify-content: center;
+  margin-bottom: 10%;
+  width: 100%;
+  text-align: center;
 `;
 
 export const AuthTextInput = styled.TextInput`

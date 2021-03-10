@@ -35,6 +35,18 @@ export const signin = (userData) => {
   };
 };
 
+export const airlinesignin = (userData) => {
+  return async (dispatch) => {
+    try {
+      const res = await instance.post("/airline-signin", userData);
+      AsyncStorage.setItem("Token", res.data.token);
+      dispatch(setUser(res.data.token));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const signout = () => {
   AsyncStorage.removeItem("Token");
   delete instance.defaults.headers.common.Authorization;
