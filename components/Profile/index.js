@@ -1,21 +1,16 @@
 //React Imports
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "react-native-paper";
 
 //Styles
 import { Title, Detailtxt, Infoview } from "./styles";
-import { profile } from "../../store/actions/authActions";
 
 export default function Profile() {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.authReducer.user);
   const checkProfile = useSelector((state) => state.authReducer.profile);
-  // checkProfile === null && user && dispatch(profile(user.username));
-  dispatch(profile(user.username));
 
   return (
     checkProfile && (

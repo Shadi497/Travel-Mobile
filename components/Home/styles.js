@@ -45,10 +45,10 @@ export const ButtonStyled = styled.Text`
   margin-left: 25px;
 `;
 
-export const SignOutButtonStyle = styled(Text)`
-  margin-bottom: 10%;
+export const SignOutButtonStyle = styled.Text`
   width: 100%;
   text-align: center;
+  margin-top: 45px;
 `;
 
 export const AuthTextInput = styled.TextInput`

@@ -1,11 +1,16 @@
+//React imports
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import DatePicker from "react-native-datepicker";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
+
+//Actions
 import { profileEdit } from "../../store/actions/authActions";
+
+//Styles
 import { AuthTextInput, Title, Txt } from "./styles";
 
 export default function UpdateProfile() {
@@ -20,7 +25,7 @@ export default function UpdateProfile() {
     event.preventDefault();
     dispatch(profileEdit(user));
 
-    navigation.replace("Profile");
+    navigation.replace("Home");
   };
 
   return (
@@ -88,7 +93,7 @@ export default function UpdateProfile() {
           mode="contained"
           onPress={handleSubmit}
         >
-          Edit
+          Save Changes
         </Button>
       </View>
     </ScrollView>

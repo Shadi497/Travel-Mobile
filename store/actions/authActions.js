@@ -95,7 +95,7 @@ export const profileEdit = (updatedProfile) => {
     try {
       const res = await instance.put("/profile/edit", updatedProfile);
       dispatch({
-        type: "UPDATE_PRODUCT",
+        type: "UPDATE_PROFILE",
         payload: { updatedProfile: res.data },
       });
     } catch (error) {
