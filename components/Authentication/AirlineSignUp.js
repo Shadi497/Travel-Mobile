@@ -31,7 +31,6 @@ export default function SignUp() {
     dispatch(signup(user));
     navigation.replace("Home");
     ToastAndroid.show(`Welcome ${user.username}`, ToastAndroid.SHORT);
-    console.log(user);
   };
 
   return (

@@ -1,18 +1,17 @@
+//React imports
 import React, { useState } from "react";
 import { Text, ToastAndroid, View } from "react-native";
 import { useDispatch } from "react-redux";
-import { signup } from "../../store/actions/authActions";
-import {
-  SignButtonStyle,
-  Signup,
-  AuthTextInput,
-  ButtonStyle,
-  Errtext,
-} from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import DatePicker from "react-native-datepicker";
-import { RadioButton } from "react-native-paper";
+
+//Actions imports
+import { signup } from "../../store/actions/authActions";
+
+//Styles
+import { Signup, AuthTextInput, ButtonStyle, Errtext } from "./styles";
+
+//Verification
 import { Formik } from "formik";
 import * as yup from "yup";
 
@@ -57,7 +56,7 @@ export default function SignUp() {
             email: "",
             // dateOfBirth: "",
             // gender: checked,
-            phoneNumber: 0,
+            phoneNumber: "",
           }}
           onSubmit={(values) => setUser(values)}
           validationSchema={yup.object().shape({

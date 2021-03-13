@@ -16,11 +16,11 @@ export const Title = styled.Text`
   color: black;
   font-size: 38px;
   text-align: center;
+  font-weight: bold;
 `;
 
 export const BottomStyling = styled.View`
-  height: 20%;
-  align-items: center;
+  height: 18%;
   justify-content: center;
 `;
 
@@ -28,19 +28,21 @@ export const Welcome = styled.Text`
   display: flex;
   justify-content: center;
   text-align: center;
-  margin-top: 40%;
+  margin-top: 20%;
 `;
 
 export const UserTitle = styled.Text`
   color: white;
   font-size: 20px;
   text-align: center;
-  margin-right: 25px;
+  margin-right: 225px;
 `;
 
 export const ButtonStyled = styled.Text`
-  font-size: 20px;
+  font-size: 25px;
+  font-weight: bold;
   color: #fff;
+  margin-left: 25px;
 `;
 
 export const SignOutButtonStyle = styled(Text)`

@@ -1,10 +1,17 @@
+//React imports
 import React, { useState } from "react";
 import { Text, ToastAndroid, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { signin } from "../../store/actions/authActions";
-import { ButtonStyle, Signin, AuthTextInput, Errtext } from "./styles";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
 import { ScrollView } from "react-native-gesture-handler";
+
+//Actions imports
+import { signin } from "../../store/actions/authActions";
+
+//Styles
+import { ButtonStyle, Signin, AuthTextInput, Errtext } from "./styles";
+
+//Verification
 import { Formik } from "formik";
 import * as yup from "yup";
 

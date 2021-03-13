@@ -70,3 +70,36 @@ export const checkToken = () => async (dispatch) => {
     }
   }
 };
+
+export const profile = () => async (dispatch) => {
+  try {
+    const res = await instance.get("/profile");
+    dispatch({
+      type: "FETCH_PROFILE",
+      payload: res.data,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const clearProfile = () => {
+  return {
+    type: "FETCH_PROFILE",
+    payload: null,
+  };
+};
+
+export const profileEdit = (updatedProfile) => {
+  return async (dispatch) => {
+    try {
+      const res = await instance.put("/profile/edit", updatedProfile);
+      dispatch({
+        type: "UPDATE_PRODUCT",
+        payload: { updatedProfile: res.data },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

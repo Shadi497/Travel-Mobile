@@ -1,5 +1,10 @@
+//React imports
 import { Text, ToastAndroid } from "react-native";
 import React from "react";
+import { Icon } from "native-base";
+import { useDispatch, useSelector } from "react-redux";
+
+//Styles
 import {
   Title,
   TopStyling,
@@ -10,22 +15,26 @@ import {
   SignOutButtonStyle,
   Welcome,
 } from "./styles";
-import { useDispatch, useSelector } from "react-redux";
-import { signout } from "../../store/actions/authActions";
-import { Icon } from "native-base";
+
+//Actions imports
+import {
+  clearProfile,
+  profile,
+  signout,
+} from "../../store/actions/authActions";
 
 const Home = ({ navigation }) => {
-  const user = useSelector((state) => state.authReducer.user);
   const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.authReducer.user);
+  const checkProfile = useSelector((state) => state.authReducer.profile);
+  checkProfile === null && user && dispatch(profile(user.username));
 
   const Out = async (event) => {
     event.preventDefault();
     await dispatch(signout());
-    ToastAndroid.show(
-      `Bye ${user.username}`,
-      ToastAndroid.SHORT,
-      ToastAndroid.TOP
-    );
+    await dispatch(clearProfile());
+    ToastAndroid.show(`See you soon !`, ToastAndroid.SHORT, ToastAndroid.TOP);
   };
   return (
     <HomeBackground
@@ -38,29 +47,42 @@ const Home = ({ navigation }) => {
         <Title>Travel Go</Title>
       </TopStyling>
 
-      <Welcome>
-        {user && <UserTitle>{`Welcome ${user.username} `}</UserTitle>}
-        {user && (
+      <BottomStyling>
+        <ButtonStyled onPress={() => navigation.navigate("Booking")}>
+          Explore the world{" "}
           <Icon
-            name="sign-out"
-            type="FontAwesome"
+            name="airplane-sharp"
+            type="Ionicons"
             style={{ color: "white" }}
-            onPress={Out}
           ></Icon>
+        </ButtonStyled>
+      </BottomStyling>
+      <Welcome>
+        {checkProfile && (
+          <>
+            <Icon
+              name="account-circle"
+              type="MaterialCommunityIcons"
+              style={{ color: "white" }}
+              onPress={() => navigation.navigate("Profile")}
+            ></Icon>
+            <UserTitle
+              onPress={() => navigation.navigate("Profile")}
+            >{`  Welcome ${checkProfile.firstName}    `}</UserTitle>
+            <Icon
+              name="sign-out"
+              type="FontAwesome"
+              style={{ color: "white" }}
+              onPress={Out}
+            ></Icon>
+          </>
         )}
       </Welcome>
       {!user && (
         <SignOutButtonStyle onPress={() => navigation.navigate("SignIn")}>
-          <Text style={{ color: "white" }}>Sign In</Text>
+          <Text style={{ color: "white", fontSize: 22 }}>Sign In</Text>
         </SignOutButtonStyle>
       )}
-      {/* {!user && (
-        <SignOutButtonStyle
-          onPress={() => navigation.navigate("AirlineSignIn")}
-        >
-          <Text style={{ color: "white" }}>Airline Sign In</Text>
-        </SignOutButtonStyle>
-      )} */}
     </HomeBackground>
   );
 };

@@ -1,5 +1,6 @@
 const initialState = {
   user: null,
+  profile: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -8,6 +9,17 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+      };
+    case "FETCH_PROFILE":
+      return {
+        ...state,
+        profile: action.payload,
+      };
+
+    case "UPDATE_PROFILE":
+      return {
+        ...state,
+        profile: action.payload.updatedProfile,
       };
 
     default:
