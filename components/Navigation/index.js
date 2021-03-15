@@ -12,6 +12,7 @@ import UpdateProfile from "../UpdateProfile";
 import { ProfileButton } from "../Button/ProfileButton";
 import { useSelector } from "react-redux";
 import { SignInButton } from "../Button/SignInButton";
+import ProfileBookingHistory from "../ProfileBookingHistory";
 
 export const RootNavigator = () => {
   const { Navigator, Screen } = createStackNavigator();
@@ -65,14 +66,13 @@ export const RootNavigator = () => {
           title: "Update Profile",
         }}
       />
-      {/* <Screen
-        name="AirlineSignIn"
-        component={AirlineSignIn}
+      <Screen
+        name="BookingHistory"
+        component={ProfileBookingHistory}
         options={{
-          title: "Sign In",
-          headerShown: false,
+          title: "Booking History",
         }}
-      /> */}
+      />
     </Navigator>
   );
 };

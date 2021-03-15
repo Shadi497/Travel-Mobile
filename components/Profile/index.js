@@ -33,6 +33,14 @@ export default function Profile() {
         >
           Edit
         </Button>
+        <Button
+          style={{ width: "90%", marginTop: 20 }}
+          // icon="account-edit"
+          mode="contained"
+          onPress={() => navigation.navigate("BookingHistory")}
+        >
+          My Bookings
+        </Button>
       </Infoview>
     )
   );
