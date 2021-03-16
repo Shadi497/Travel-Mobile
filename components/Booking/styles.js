@@ -20,16 +20,16 @@ export const Detailtxt = styled.Text`
 
 export const Infoview = styled.View`
   display: flex;
-
   justify-content: space-between;
-  margin: 35px 0 0 15px;
+  margin: 10px 0 0 15px;
 `;
 
 export const Radioview = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 15px;
+  justify-content: center;
+  margin-top: 25px;
 `;
 
 export const Numview = styled.View`

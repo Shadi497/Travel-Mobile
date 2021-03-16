@@ -13,6 +13,7 @@ import { ProfileButton } from "../Button/ProfileButton";
 import { useSelector } from "react-redux";
 import { SignInButton } from "../Button/SignInButton";
 import ProfileBookingHistory from "../ProfileBookingHistory";
+import FlightList from "../FlightList";
 
 export const RootNavigator = () => {
   const { Navigator, Screen } = createStackNavigator();
@@ -71,6 +72,13 @@ export const RootNavigator = () => {
         component={ProfileBookingHistory}
         options={{
           title: "Booking History",
+        }}
+      />
+      <Screen
+        name="FlightList"
+        component={FlightList}
+        options={{
+          title: "Flights results",
         }}
       />
     </Navigator>

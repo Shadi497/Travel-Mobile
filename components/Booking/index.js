@@ -6,13 +6,20 @@ import DatePicker from "react-native-datepicker";
 import { ScrollView } from "react-native-gesture-handler";
 import NumericInput from "react-native-numeric-input";
 import { RadioButton, Button, Searchbar } from "react-native-paper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 //Styles
 import { Infoview, Radioview, Title, Numview, Num } from "./styles";
 
+//Actions
+import { fetchFlights } from "../../store/actions/flightActions";
+
 export default function Booking() {
+  const dispatch = useDispatch();
+
   const [checked, setChecked] = useState(false);
+  const [seatchecked, setSeatChecked] = useState(false);
   const [query, setQuery] = useState("");
   const [flight, setFlight] = useState({
     departureAirport: null,
@@ -20,50 +27,70 @@ export default function Booking() {
     departureDate: "",
     returnDate: null,
     flightType: "oneway",
+    seatType: "economy",
     passengers: 0,
   });
+
+  const navigation = useNavigation();
+
   const airports = useSelector((state) => state.airportReducer.airports);
 
-  const departureAirports = airports
-    // .filter((airport) =>
-    //   airport.name.toLowerCase().includes(query.toLowerCase())
-    // )
-    .map((airport) => ({
-      name: airport.name,
-      location: airport.location,
-      id: airport.id,
-    }));
+  const departureAirports = airports.map((airport) => ({
+    name: airport.name,
+    location: airport.location,
+    id: airport.id,
+  }));
 
   const arrivalAirports = airports
-    // .filter(
-    //   (airport) => !airport.name.toLowerCase().includes(query.toLowerCase())
-    // )
-    .filter((airport) => airport.id !== flight.departureAirport)
+    // .filter((airport) => airport.id !== flight.departureAirport)
     .map((airport) => ({
       name: airport.name,
       location: airport.location,
       id: airport.id,
     }));
 
-  const round = () => {
-    setChecked(true);
-    setFlight({ ...flight, flightType: "roundtrip" });
+  const roundOrone = () => {
+    checked
+      ? (setChecked(false),
+        setFlight({ ...flight, flightType: "oneway", returnDate: "" }))
+      : (setChecked(true), setFlight({ ...flight, flightType: "roundtrip" }));
   };
 
-  const oneway = () => {
-    setChecked(false);
-    setFlight({ ...flight, flightType: "oneway", returnDate: "" });
+  const seats = () => {
+    seatchecked
+      ? (setSeatChecked(false), setFlight({ ...flight, seatType: "economy" }))
+      : (setSeatChecked(true), setFlight({ ...flight, seatType: "buisness" }));
   };
+
+  const handleSearch = () => {
+    flight.departureAirport === flight.arrivalAirport
+      ? alert("You can't depart & arrive from the SAME airport! ")
+      : (dispatch(fetchFlights(flight)), navigation.navigate("FlightList"));
+  };
+
   return (
     <ScrollView>
-      <Infoview>
-        <Searchbar
+      {/* <Searchbar
           value={query}
           style={{ width: "95%" }}
           placeholder="Search"
           onChangeText={(event) => setQuery(event)}
-        ></Searchbar>
+        ></Searchbar> */}
 
+      <Radioview>
+        <RadioButton
+          status={checked === true ? "checked" : "unchecked"}
+          onPress={roundOrone}
+        />
+        <Text>Round Trip</Text>
+        <RadioButton
+          status={checked === false ? "checked" : "unchecked"}
+          onPress={roundOrone}
+        />
+        <Text>One Way</Text>
+      </Radioview>
+
+      <Infoview>
         <Title>From</Title>
         <Picker
           mode="dropdown"
@@ -107,15 +134,15 @@ export default function Booking() {
 
         <Radioview>
           <RadioButton
-            status={checked === true ? "checked" : "unchecked"}
-            onPress={round}
+            status={seatchecked === false ? "checked" : "unchecked"}
+            onPress={seats}
           />
-          <Text>Round Trip</Text>
+          <Text>Economy</Text>
           <RadioButton
-            status={checked === false ? "checked" : "unchecked"}
-            onPress={oneway}
+            status={seatchecked === true ? "checked" : "unchecked"}
+            onPress={seats}
           />
-          <Text>One Way</Text>
+          <Text>Business</Text>
         </Radioview>
 
         <Numview>
@@ -189,7 +216,7 @@ export default function Booking() {
           style={{ width: "90%", marginTop: 25, marginBottom: 25 }}
           icon="shield-search"
           mode="contained"
-          onPress={() => alert(JSON.stringify(flight, null, 4))}
+          onPress={handleSearch}
         >
           Search
         </Button>
