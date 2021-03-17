@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { CardItem } from "native-base";
 
 export const CardStyle = styled(CardItem)`
-  margin-top: 15px;
+  margin: 15px 0 25px 0;
   text-align: center;
   font-weight: bold;
   font-size: 17px;
@@ -15,13 +15,6 @@ export const Txt = styled.Text`
   text-align: center;
   font-weight: bold;
   font-size: 17px;
-`;
-
-export const TxtFlight = styled.Text`
-  margin: 25px 0 10px 0;
-  text-align: center;
-  font-weight: bold;
-  font-size: 25px;
 `;
 
 export const Price = styled.Text`

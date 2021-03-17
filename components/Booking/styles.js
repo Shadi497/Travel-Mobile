@@ -2,7 +2,6 @@ import styled from "styled-components/native";
 
 export const Title = styled.Text`
   font-size: 17px;
-  margin-top: 25px;
   font-weight: bold;
 `;
 
@@ -21,7 +20,7 @@ export const Detailtxt = styled.Text`
 export const Infoview = styled.View`
   display: flex;
   justify-content: space-between;
-  margin: 10px 0 0 15px;
+  margin: 20px 0 0 15px;
 `;
 
 export const Radioview = styled.View`

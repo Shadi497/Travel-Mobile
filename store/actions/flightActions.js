@@ -25,3 +25,26 @@ export const fetchFlights = (flight) => {
     }
   };
 };
+
+export const fetchSecondFlights = (flight, arrivalDate) => {
+  return async (dispatch) => {
+    try {
+      const departureDateFrom = moment(flight.arrivalDate).format("LLLL");
+      const res = await instance.get(
+        `flights/search/outbound/?departureId=${
+          flight.arrivalAirport
+        }&arrivalId=${flight.departureAirport}&${
+          flight.seatType === "economy"
+            ? `economySeats=${flight.passengers}`
+            : `businessSeats=${flight.passengers}`
+        }&departureDate=${departureDateFrom}&arrivalDate=${arrivalDate}`
+      );
+      dispatch({
+        type: "FETCH_ROUNDWAY_FLIGHT",
+        payload: res.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};

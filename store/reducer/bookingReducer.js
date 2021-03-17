@@ -1,19 +1,20 @@
 const initialState = {
-  inbound: [],
-  outbound: [],
+  passengers: [],
+  flights: [],
+  flightInfo: null,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "FETCH_FLIGHTS":
+    case "GET_SEATS":
       return {
         ...state,
-        inbound: action.payload,
+        flightInfo: action.payload,
       };
-    case "FETCH_ROUNDWAY_FLIGHT":
+    case "GET_FLIGHT_ID":
       return {
         ...state,
-        outbound: action.payload,
+        flights: action.payload,
       };
     default:
       return state;

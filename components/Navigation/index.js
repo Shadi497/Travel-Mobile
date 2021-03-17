@@ -1,6 +1,7 @@
 //React Imports
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
+import { useSelector } from "react-redux";
 
 //Components
 import Home from "../Home";
@@ -10,10 +11,12 @@ import Booking from "../Booking";
 import Profile from "../Profile";
 import UpdateProfile from "../UpdateProfile";
 import { ProfileButton } from "../Button/ProfileButton";
-import { useSelector } from "react-redux";
 import { SignInButton } from "../Button/SignInButton";
 import ProfileBookingHistory from "../ProfileBookingHistory";
 import FlightList from "../FlightList";
+import FlightListOutbound from "../FlightListOutbound";
+import FlightListPage from "../FlightListPage";
+import Checkout from "../Checkout";
 
 export const RootNavigator = () => {
   const { Navigator, Screen } = createStackNavigator();
@@ -76,9 +79,23 @@ export const RootNavigator = () => {
       />
       <Screen
         name="FlightList"
-        component={FlightList}
+        component={FlightListPage}
         options={{
           title: "Flights results",
+        }}
+      />
+      <Screen
+        name="FlightListOutbound"
+        component={FlightListOutbound}
+        options={{
+          title: "Flights results",
+        }}
+      />
+      <Screen
+        name="Checkout"
+        component={Checkout}
+        options={{
+          title: "Checkout",
         }}
       />
     </Navigator>
