@@ -1,6 +1,8 @@
 import React from "react";
 import { Text } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { profile } from "../../store/actions/authActions";
+import { ScrollView } from "react-native-gesture-handler";
 
 //Styles
 import {
@@ -11,8 +13,11 @@ import {
 } from "./styles";
 
 export default function ProfileBookingHistory() {
-  const booking = useSelector((state) => state.authReducer.booking);
+  const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.authReducer.user);
+  dispatch(profile(user.username));
+  const booking = useSelector((state) => state.authReducer.booking);
   const row =
     booking.length > 0 ? (
       booking.map((book) => (
@@ -43,5 +48,9 @@ export default function ProfileBookingHistory() {
     ) : (
       <NoBooking>You don't have any bookings!</NoBooking>
     );
-  return <Infoview>{row}</Infoview>;
+  return (
+    <ScrollView>
+      <Infoview>{row}</Infoview>
+    </ScrollView>
+  );
 }

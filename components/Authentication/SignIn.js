@@ -32,7 +32,7 @@ export default function SignIn() {
     navigation.replace("Home");
     if (users !== "null") {
       ToastAndroid.show(
-        `Welcome ${user.username}`,
+        `Hi ${user.username} 👋`,
         ToastAndroid.SHORT,
         ToastAndroid.TOP
       );
@@ -75,7 +75,7 @@ export default function SignIn() {
                   value={values.username}
                   onChangeText={handleChange("username")}
                   onBlur={() => setFieldTouched("username")}
-                  placeholder="username"
+                  placeholder="Username"
                 />
                 {touched.username && errors.username && (
                   <Errtext>{errors.username}</Errtext>

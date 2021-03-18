@@ -32,8 +32,8 @@ export const fetchSecondFlights = (flight, arrivalDate) => {
       const departureDateFrom = moment(flight.arrivalDate).format("LLLL");
       const res = await instance.get(
         `flights/search/outbound/?departureId=${
-          flight.arrivalAirport
-        }&arrivalId=${flight.departureAirport}&${
+          flight.departureAirport
+        }&arrivalId=${flight.arrivalAirport}&${
           flight.seatType === "economy"
             ? `economySeats=${flight.passengers}`
             : `businessSeats=${flight.passengers}`

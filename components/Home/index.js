@@ -34,7 +34,7 @@ const Home = ({ navigation }) => {
     event.preventDefault();
     await dispatch(signout());
     await dispatch(clearProfile());
-    ToastAndroid.show(`See you soon !`, ToastAndroid.SHORT, ToastAndroid.TOP);
+    ToastAndroid.show(`See you soon 😔`, ToastAndroid.SHORT, ToastAndroid.TOP);
   };
   return (
     <HomeBackground
@@ -66,9 +66,13 @@ const Home = ({ navigation }) => {
               style={{ color: "white" }}
               onPress={() => navigation.navigate("Profile")}
             ></Icon>
-            <UserTitle
-              onPress={() => navigation.navigate("Profile")}
-            >{`  Welcome ${checkProfile.firstName}    `}</UserTitle>
+            <UserTitle onPress={() => navigation.navigate("Profile")}>
+              {`  Welcome `}
+              <Text style={{ fontWeight: "bold" }}>
+                {checkProfile.firstName}
+              </Text>
+              {`    `}
+            </UserTitle>
             <Icon
               name="sign-out"
               type="FontAwesome"

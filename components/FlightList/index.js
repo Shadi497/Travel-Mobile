@@ -117,7 +117,14 @@ export default function FlightList({
       {oneway === "roundtrip" && <TxtFlight>Choose the first Flight</TxtFlight>}
       {row}
       {oneway === "oneway" ? (
-        <View style={{ width: "50%", marginTop: 25, alignSelf: "center" }}>
+        <View
+          style={{
+            width: "50%",
+            marginTop: 25,
+            marginBottom: 55,
+            alignSelf: "center",
+          }}
+        >
           <Button
             icon="shield-search"
             mode="contained"
@@ -128,9 +135,16 @@ export default function FlightList({
         </View>
       ) : (
         <>
-          <View style={{ width: "50%", marginTop: 25, alignSelf: "center" }}>
+          <View
+            style={{
+              width: "50%",
+              marginTop: 25,
+              marginBottom: 45,
+              alignSelf: "center",
+            }}
+          >
             <Button
-              style={{ width: "90%", marginTop: 25, marginBottom: 25 }}
+              style={{ width: "90%", marginTop: 25 }}
               icon="shield-search"
               mode="contained"
               disabled={firstFlight === null ? true : false}

@@ -16,31 +16,54 @@ import {
   ViewColumn,
   Title,
   ViewOthers,
+  MainView,
 } from "./styles";
 
 //Verification
 import { Formik } from "formik";
 import * as yup from "yup";
+import { ToastAndroid } from "react-native";
+import {
+  bookFlight,
+  getPassengerInfo,
+} from "../../store/actions/bookingActions";
 
 export default function Checkout() {
-  const flightInfo = useSelector((state) => state.bookingReducer.flightInfo);
+  const booking = useSelector((state) => state.bookingReducer);
+  const flightSeatsType = booking.flightInfo.seatType;
+  const passengers = booking.flightInfo.passengers;
+  const user = useSelector((state) => state.authReducer.user);
 
-  const [passenger, setPassenger] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: 0,
-  });
-
-  const navigation = useNavigation();
+  const [passenger, setPassenger] = useState();
 
   const dispatch = useDispatch();
 
   const OnSubmit = (event) => {
     // event.preventDefault();
-    // dispatch(signup(user));
-    // navigation.replace("Home");
-    // ToastAndroid.show(`Welcome ${user.username}`, ToastAndroid.SHORT);
+    dispatch(getPassengerInfo(passenger));
+    ToastAndroid.show(`Added Passenger`, ToastAndroid.SHORT);
+  };
+
+  const handleBooking = () => {
+    if (flightSeatsType === "economy") {
+      bookFlight(
+        {
+          passengers: booking.passengers,
+          flights: booking.flights,
+          economySeats: passengers,
+        },
+        user
+      );
+    } else if (flightSeatsType === "buisness") {
+      bookFlight(
+        {
+          passengers: booking.passengers,
+          flights: booking.flights,
+          businessSeats: passengers,
+        },
+        user
+      );
+    }
   };
 
   return (
@@ -53,7 +76,7 @@ export default function Checkout() {
           email: "",
           phoneNumber: "",
         }}
-        onSubmit={(values) => alert(values)}
+        onSubmit={(values) => setPassenger(values)}
         validationSchema={yup.object().shape({
           email: yup.string().email().required("Please, provide your email!"),
           firstName: yup.string().required("Please, provide your first name!"),
@@ -71,7 +94,7 @@ export default function Checkout() {
           handleSubmit,
         }) => (
           <View>
-            {[...Array(flightInfo.passengers)].map((x, index) => (
+            {[...Array(booking.flightInfo.passengers)].map((x, index) => (
               <ViewRow>
                 <ViewColumn>
                   <AuthTextInput
@@ -123,14 +146,19 @@ export default function Checkout() {
                 )}
               </ViewOthers>
               <ButtonStyle
-                title="Submit"
+                title="Add Passenger"
                 disabled={!isValid}
-                onPress={handleSubmit}
+                onPress={passenger ? OnSubmit : handleSubmit}
               />
             </MainView>
           </View>
         )}
       </Formik>
+      <ButtonStyle
+        title="Book Your Flight"
+        disabled={booking.passengers.length !== 0 ? false : true}
+        onPress={handleBooking}
+      />
     </ScrollView>
   );
 }

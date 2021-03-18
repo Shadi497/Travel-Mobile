@@ -144,7 +144,7 @@ export default function Booking() {
         <Numview>
           <Num>No. of Passengers</Num>
           <NumericInput
-            initValue="1"
+            // initValue="1"
             rounded="true"
             minValue="1"
             maxValue="6"

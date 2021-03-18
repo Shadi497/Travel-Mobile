@@ -15,6 +15,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         flights: action.payload,
+        passengers: [],
+      };
+    case "GET_PASSENGER":
+      return {
+        ...state,
+        passengers: [...state.passengers, action.payload],
       };
     default:
       return state;

@@ -12,9 +12,11 @@ import {
   FlightView,
   AirportView,
   CardStyle,
+  NoFlights,
 } from "./styles";
 
 import { useSelector } from "react-redux";
+import { Text } from "react-native";
 
 export default function FlightListOutbound({
   setsecondflightId,
@@ -63,6 +65,12 @@ export default function FlightListOutbound({
       </CardStyle>
     </>
   ));
-
-  return <>{row}</>;
+  return (
+    <>
+      {row}
+      {flightsOutbound.length === 0 && (
+        <NoFlights>No Flights Available!</NoFlights>
+      )}
+    </>
+  );
 }

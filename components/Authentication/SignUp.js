@@ -33,7 +33,7 @@ export default function SignUp() {
     event.preventDefault();
     dispatch(signup(user));
     navigation.replace("Home");
-    ToastAndroid.show(`Welcome ${user.username}`, ToastAndroid.SHORT);
+    ToastAndroid.show(`Welcome ${user.username} 👋`, ToastAndroid.SHORT);
   };
 
   return (

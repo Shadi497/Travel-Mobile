@@ -12,6 +12,7 @@ export const Detailtxt = styled.Text`
 
 export const Infoview = styled.View`
   align-items: center;
+  margin-bottom: 45px;
 `;
 
 export const TitleHistory = styled.Text`

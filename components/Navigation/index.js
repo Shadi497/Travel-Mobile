@@ -13,10 +13,10 @@ import UpdateProfile from "../UpdateProfile";
 import { ProfileButton } from "../Button/ProfileButton";
 import { SignInButton } from "../Button/SignInButton";
 import ProfileBookingHistory from "../ProfileBookingHistory";
-import FlightList from "../FlightList";
 import FlightListOutbound from "../FlightListOutbound";
 import FlightListPage from "../FlightListPage";
 import Checkout from "../Checkout";
+import { HomeButton } from "../Button/HomeButton";
 
 export const RootNavigator = () => {
   const { Navigator, Screen } = createStackNavigator();
@@ -96,6 +96,7 @@ export const RootNavigator = () => {
         component={Checkout}
         options={{
           title: "Checkout",
+          headerRight: () => <HomeButton />,
         }}
       />
     </Navigator>
